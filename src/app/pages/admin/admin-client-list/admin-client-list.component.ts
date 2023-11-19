@@ -5,6 +5,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ClientDto } from 'src/app/commons/dto/client';
 import { ClientService } from 'src/app/services/client.service';
 import { ModalAdminCreateClientComponent } from '../modal/modal-admin-create-client/modal-admin-create-client.component';
+import { ModalAdminUpdateClientComponent } from '../modal/modal-admin-update-client/modal-admin-update-client.component';
 
 @Component({
   selector: 'app-admin-client-list',
@@ -50,6 +51,37 @@ export class AdminClientListComponent {
       nzWidth: 750,
     });
     modal.afterClose.subscribe(() => this.getAllClient())
+  }
+
+  showModalUpdateClient(clientId: number): void {
+    const modal = this.modalService.create({
+      nzTitle: 'Câp nhât thông tin khách hàng',
+      nzContent: ModalAdminUpdateClientComponent,
+      nzWidth: 750,
+    });
+    modal.componentInstance!.clientId = clientId;
+    modal.afterClose.subscribe(() => this.getAllClient())
+  }
+
+  onDeleteClient(clientId: number): void {
+    this.modalService.confirm({
+      nzTitle: '<i>Xác nhận</i>',
+      nzContent: '<b>Bạn có chắc muốn xóa dữ liệu khách hàng #' + clientId + '?</b>',
+      nzOnOk: () => this.clientService.deleteClient(clientId).subscribe(response => {
+        this.notification.create(
+          'success',
+          'Thông báo',
+          'Xóa dữ liệu khách hàng thành công!!'
+        );
+        this.getAllClient();
+      }, error => {
+        this.notification.create(
+          'error',
+          'Lỗi server',
+          'Lỗi không thể xóa dữ liệu do dữ liệu này đã được sử dụng bởi các chức năng khác hoặc dữ liệu đã bị lock'
+        );
+      })
+    });
   }
 
   onProcessContract(clientId: number): void {

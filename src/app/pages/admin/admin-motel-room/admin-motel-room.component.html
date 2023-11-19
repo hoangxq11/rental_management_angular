@@ -79,10 +79,12 @@
                                     ? "Còn trống" : data.roomStatus.toString() == "RENTED" ? "Đã thuê" : "Chưa rõ tình trạng"}}</td>
                                     <td [nzRight]="false">
                                         <a><span nz-icon
-                                                nzType="edit" nzTheme="outline"></span></a>
+                                                nzType="edit" nzTheme="outline"
+                                                (click)="showModalUpdateRoom(data.id)"></span></a>
                                         <nz-divider nzType="vertical"></nz-divider>
                                         <a><span nz-icon
-                                                nzType="delete" nzTheme="outline"></span></a>
+                                                nzType="delete" nzTheme="outline"
+                                                (click)="onDeleteRoom(data.id)"></span></a>
                                     </td>
                                 </tr>
                             </tbody>

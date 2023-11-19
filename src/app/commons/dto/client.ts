@@ -8,7 +8,7 @@ export class ClientRequest {
     address!: string;
     idCard!: string;
     note!: string;
-    clientStatus!: ClientStatus;
+    clientStatus?: ClientStatus;
 }
 
 export class ClientDto {

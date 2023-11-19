@@ -81,9 +81,11 @@
                                             ? "Chưa thuê/Đã hủy" : data.clientStatus.toString() == "RENTED"
                                             ? "Đang thuê" : "Chưa rõ tình trạng"}}</td>
                                         <td [nzRight]="false">
-                                            <a><span nz-icon nzType="edit" nzTheme="outline"></span></a>
+                                            <a><span nz-icon nzType="edit" nzTheme="outline"
+                                                (click)="showModalUpdateClient(data.id)"></span></a>
                                             <nz-divider nzType="vertical"></nz-divider>
-                                            <a><span nz-icon nzType="delete" nzTheme="outline"></span></a>
+                                            <a><span nz-icon nzType="delete" nzTheme="outline"
+                                                (click)="onDeleteClient(data.id)"></span></a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { RoomDto } from 'src/app/commons/dto/room';
 import { ModalAdminCreateRoomComponent } from '../modal/modal-admin-create-room/modal-admin-create-room.component';
+import { ModalAdminUpdateRoomComponent } from '../modal/modal-admin-update-room/modal-admin-update-room.component';
 import { RoomService } from './../../../services/room.service';
 
 @Component({
@@ -51,6 +52,37 @@ export class AdminMotelRoomComponent {
       nzWidth: 750,
     });
     modal.afterClose.subscribe(() => this.getAllRoom())
+  }
+
+  showModalUpdateRoom(roomId: number): void {
+    const modal = this.modalService.create({
+      nzTitle: 'Cập nhật phòng trọ',
+      nzContent: ModalAdminUpdateRoomComponent,
+      nzWidth: 750
+    });
+    modal.componentInstance!.roomId = roomId;
+    modal.afterClose.subscribe(() => this.getAllRoom())
+  }
+
+  onDeleteRoom(roomId: number): void {
+    this.modalService.confirm({
+      nzTitle: '<i>Xác nhận</i>',
+      nzContent: '<b>Bạn có chắc muốn xóa dữ liệu phòng #' + roomId + '?</b>',
+      nzOnOk: () => this.roomService.deleteRoom(roomId).subscribe(response => {
+        this.notification.create(
+          'success',
+          'Thông báo',
+          'Xóa dữ liệu phòng trọ thành công!!'
+        );
+        this.getAllRoom();
+      }, error => {
+        this.notification.create(
+          'error',
+          'Lỗi server',
+          'Lỗi không thể xóa dữ liệu do dữ liệu này đã được sử dụng bởi các chức năng khác hoặc dữ liệu đã bị lock'
+        );
+      })
+    });
   }
 
   onViewDetail(roomId: number): void {

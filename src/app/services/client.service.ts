@@ -24,11 +24,11 @@ export class ClientService {
         return this.httpClient.get<ClientResponse>(`${this.baseURL}/${clientId}`);
     }
 
-    updateRoom(clientId: number, clientRequest: ClientRequest): Observable<ClientResponse> {
+    updateClient(clientId: number, clientRequest: ClientRequest): Observable<ClientResponse> {
         return this.httpClient.put<ClientResponse>(`${this.baseURL}/${clientId}`, clientRequest);
     }
 
-    deleteRoom(clientId: number): Observable<number> {
+    deleteClient(clientId: number): Observable<number> {
         return this.httpClient.delete<number>(`${this.baseURL}/${clientId}`);
     }
 

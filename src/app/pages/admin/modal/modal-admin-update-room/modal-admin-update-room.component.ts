@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { RoomStatus } from 'src/app/commons/constants/status';
-import { RoomRequest } from './../../../../commons/dto/room';
-import { RoomService } from './../../../../services/room.service';
+import { RoomRequest } from 'src/app/commons/dto/room';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
-  selector: 'app-modal-admin-create-room',
-  templateUrl: './modal-admin-create-room.component.html',
-  styleUrls: ['./modal-admin-create-room.component.scss']
+  selector: 'app-modal-admin-update-room',
+  templateUrl: './modal-admin-update-room.component.html',
+  styleUrls: ['./modal-admin-update-room.component.scss']
 })
-export class ModalAdminCreateRoomComponent {
+export class ModalAdminUpdateRoomComponent {
+  @Input() roomId!: number;
+
   createRoomRequest: RoomRequest = new RoomRequest();
   validateForm!: UntypedFormGroup;
 
@@ -32,13 +34,36 @@ export class ModalAdminCreateRoomComponent {
       address: [null, [Validators.required]],
       roomArea: [null, [Validators.required]],
     });
+    this.getRoomById();
   }
 
   destroyModal(): void {
     this.modal.close();
   }
 
-  createRoom(): void {
+  getRoomById(): void {
+    this.roomService.getRoomById(this.roomId).subscribe(response => {
+      let data = response.data;
+
+      this.validateForm = this.fb.group({
+        name: [data.name, [Validators.required]],
+        type: [data.type, [Validators.required]],
+        price: [data.price, [Validators.required]],
+        description: [data.description, [Validators.required]],
+        buildingName: [data.buildingDto.name, [Validators.required]],
+        address: [data.buildingDto.address, [Validators.required]],
+        roomArea: [data.roomArea, [Validators.required]],
+      });
+    }, error => {
+      this.notification.create(
+        'error',
+        'Lỗi máy chủ',
+        'Có lỗi xảy ra vui lòng thử lại sau'
+      );
+    })
+  }
+
+  updateRoom(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
       let buildingRequest = {
@@ -58,12 +83,12 @@ export class ModalAdminCreateRoomComponent {
       }
 
       console.log(this.createRoomRequest)
-      this.roomService.createRoom(this.createRoomRequest).subscribe(response => {
+      this.roomService.updateRoom(this.roomId, this.createRoomRequest).subscribe(response => {
         this.destroyModal();
         this.notification.create(
           'success',
           'Thông báo',
-          'Thêm mới phòng thành công'
+          'Cập nhật thông tin phòng thành công'
         );
       }, error => {
         this.notification.create(
