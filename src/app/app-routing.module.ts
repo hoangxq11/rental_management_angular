@@ -18,7 +18,7 @@ const adminRoutes: Routes = [
   { path: 'admin/room/:id', component: AdminRoomDetailComponent, canActivate: [AuthGuard] },
   { path: 'admin/rental-room/:id', component: CustomerRentalRoomComponent, canActivate: [AuthGuard] },
   { path: 'admin/clients', component: AdminClientListComponent, canActivate: [AuthGuard] },
-  { path: 'admin/contract/:id', component: AdminRentalContractComponent, canActivate: [AuthGuard] },
+  { path: 'admin/contract/client/:id', component: AdminRentalContractComponent, canActivate: [AuthGuard] },
   { path: 'admin/services', component: AdminServiceListComponent, canActivate: [AuthGuard] }
 ]
 

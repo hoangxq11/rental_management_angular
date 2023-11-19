@@ -88,7 +88,7 @@ export class AdminClientListComponent {
     this.modalService.confirm({
       nzTitle: '<i>Xác nhận</i>',
       nzContent: '<b>Bạn muốn xem lịch sử thuê phòng của khách hàng này?</b>',
-      nzOnOk: () => this.router.navigate(['/admin/contract', clientId])
+      nzOnOk: () => this.router.navigate(['/admin/contract/client', clientId])
     });
   }
 }

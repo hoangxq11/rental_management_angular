@@ -33,7 +33,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách khách hàng</h3>
+                            <h3 class="card-title">Danh sách khách hàng (Chọn 1 khách hàng đã thuê phòng để xem chi tiết hợp đồng)</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -60,7 +60,7 @@
                                         <td
                                             (click)="data.clientStatus.toString() == 'RENTED' ? onProcessContract(data.id) : ''">
                                             {{i}}</td>
-                                        <td
+                                        <td 
                                             (click)="data.clientStatus.toString() == 'RENTED' ? onProcessContract(data.id) : ''">
                                             {{ data.fullName }}</td>
                                         <td
@@ -76,10 +76,14 @@
                                             (click)="data.clientStatus.toString() == 'RENTED' ? onProcessContract(data.id) : ''">
                                             {{ data.email }}</td>
                                         <td
+                                            [style.color]="data.clientStatus.toString() == 'RENTED' ? 'green' :
+                                            data.clientStatus.toString() == 'AVAILABLE' ? 'red' :'Không rõ'"
                                             (click)="data.clientStatus.toString() == 'RENTED' ? onProcessContract(data.id) : ''">
-                                            {{ data.clientStatus.toString() == "AVAILABLE"
-                                            ? "Chưa thuê/Đã hủy" : data.clientStatus.toString() == "RENTED"
-                                            ? "Đang thuê" : "Chưa rõ tình trạng"}}</td>
+                                        
+                                            <b>{{ data.clientStatus.toString() == "AVAILABLE"
+                                                ? "Chưa thuê/Đã hủy" : data.clientStatus.toString() == "RENTED"
+                                                ? "Đang thuê" : "Chưa rõ tình trạng"}}</b>
+                                        </td>
                                         <td [nzRight]="false">
                                             <a><span nz-icon nzType="edit" nzTheme="outline"
                                                 (click)="showModalUpdateClient(data.id)"></span></a>
