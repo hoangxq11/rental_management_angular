@@ -28,6 +28,8 @@ import { ModalAdminUpdateClientComponent } from './pages/admin/modal/modal-admin
 import { AdminServiceListComponent } from './pages/admin/admin-service-list/admin-service-list.component';
 import { ModalAdminCreateServiceComponent } from './pages/admin/modal/modal-admin-create-service/modal-admin-create-service.component';
 import { ModalAdminUpdateServiceComponent } from './pages/admin/modal/modal-admin-update-service/modal-admin-update-service.component';
+import { AdminMonthBillComponent } from './pages/admin/admin-month-bill/admin-month-bill.component';
+import { AdminBillDetailComponent } from './pages/admin/admin-bill-detail/admin-bill-detail.component';
 
 registerLocaleData(en);
 
@@ -51,7 +53,9 @@ registerLocaleData(en);
     ModalAdminUpdateClientComponent,
     AdminServiceListComponent,
     ModalAdminCreateServiceComponent,
-    ModalAdminUpdateServiceComponent
+    ModalAdminUpdateServiceComponent,
+    AdminMonthBillComponent,
+    AdminBillDetailComponent
   ],
   imports: [
     BrowserModule,
